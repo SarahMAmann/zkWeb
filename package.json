@@ -5,7 +5,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest"
+    "test": "jest",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@babel/preset-env": "^7.23.6",
@@ -40,6 +41,7 @@
     "eslint": "8.56.0",
     "eslint-config-next": "14.0.4",
     "esm": "^3.2.25",
+    "husky": "^8.0.3",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0"
   }
