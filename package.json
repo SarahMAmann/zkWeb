@@ -10,8 +10,11 @@
   },
   "dependencies": {
     "@babel/preset-env": "^7.23.6",
+    "@headlessui/react": "^1.7.17",
+    "@heroicons/react": "^2.1.1",
     "@supabase/ssr": "latest",
     "@supabase/supabase-js": "latest",
+    "@tailwindcss/forms": "^0.5.7",
     "autoprefixer": "10.4.15",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.1.2",
