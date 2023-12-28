@@ -1,3 +1,8 @@
 {
-    "extends": ["next"]
+    "extends": ["next", "prettier"],
+    "plugins": ["prettier"],
+    "rules": {
+        "prettier/prettier": "warn",
+        "no-console": "warn"
+    }    
 }
