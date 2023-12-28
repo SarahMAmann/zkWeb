@@ -1,11 +1,6 @@
 export default function GenerateButton() {
   return (
-    <a
-      className="py-2 px-3 flex rounded-md no-underline hover:bg-btn-background-hover border"
-      href=""
-      target="_blank"
-      rel="noreferrer"
-    >
+    <div className="py-2 px-3 flex rounded-md no-underline hover:bg-btn-background-hover border">
       <svg
         aria-label="Vercel logomark"
         role="img"
@@ -18,6 +13,6 @@ export default function GenerateButton() {
         ></path>
       </svg>
       Generate A Proof
-    </a>
+    </div>
   );
 }
