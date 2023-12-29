@@ -1,14 +1,22 @@
 "use client";
 import Footer from "@/components/Footer";
+import InvalidModal from "@/components/InvalidModal";
+import ValidModal from "@/components/ValidModal";
 import Link from "next/link";
 import { useParams } from "next/navigation";
+import { useState } from "react";
 
 export default function Prover() {
-  const params = useParams<{ tag: string; item: string }>();
   // use params.id to fetch the associated proof data from the api
+  const params = useParams<{ tag: string; item: string }>();
+  const [showValidModal, setShowValidModal] = useState(false);
+  const [showInvalidModal, setShowInvalidModal] = useState(false);
+  const [showError, setShowError] = useState(false);
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
+      {showValidModal && <ValidModal />}
+      {showInvalidModal && <InvalidModal />}
       <div className="isolate px-6 py-24 sm:py-32 lg:px-8">
         <div
           className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
@@ -97,6 +105,12 @@ export default function Prover() {
           </div>
         </form>
       </div>
+
+      {showError && (
+        <div className="-mt-48 text-red-500">
+          There was an error processing the request, please try again.
+        </div>
+      )}
 
       <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
         <Footer />

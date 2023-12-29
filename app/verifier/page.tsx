@@ -1,8 +1,11 @@
 "use client";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import { useState } from "react";
 
 export default function Verifier() {
+  const [showError, setShowError] = useState(false);
+
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <div className="isolate px-6 py-24 sm:py-32 lg:px-8">
@@ -108,6 +111,16 @@ export default function Verifier() {
           </div>
         </form>
       </div>
+
+      {showError && (
+        <div className="-mt-48 text-red-500 w-1/2">
+          Error: a proof could not be generated for this input. You can refer to
+          the documentation to make sure your input meets the requirements:{" "}
+          <span className="underline text-gray-500 cursor-pointer">
+            https://docs.zkweb.io
+          </span>
+        </div>
+      )}
 
       <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
         <Footer />
