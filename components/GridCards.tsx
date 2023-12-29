@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 
 const proofs = [
   {
@@ -91,9 +92,11 @@ export default function GridCards() {
             className="overflow-hidden rounded-xl border border-gray-200"
           >
             <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
-              <img
+              <Image
                 src={proof.imageUrl}
                 alt={proof.name}
+                width={12}
+                height={12}
                 className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
               />
               <div className="text-sm font-medium leading-6 text-gray-900">
