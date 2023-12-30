@@ -5,6 +5,53 @@ import { useState } from "react";
 
 export default function Verifier() {
   const [showError, setShowError] = useState(false);
+  const [responseData, setResponseData] = useState(null);
+
+  const initialFormData = {
+    title: "",
+    email: "",
+    message: "",
+  };
+
+  const [formData, setFormData] = useState({
+    title: "",
+    email: "",
+    message: "",
+  });
+
+  const handleInputChange = (e: {
+    target: { name: string; value: string };
+  }) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleSubmit = async (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    try {
+      const response = await fetch("/api/generate", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(formData),
+      });
+
+      if (response.ok) {
+        const data = await response.json();
+        setResponseData(data);
+        setShowError(false);
+      } else {
+        setShowError(true);
+      }
+      setFormData(initialFormData);
+    } catch (error) {
+      setShowError(true);
+    }
+  };
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
@@ -55,6 +102,8 @@ export default function Verifier() {
                   type="text"
                   name="title"
                   id="title"
+                  value={formData.title}
+                  onChange={handleInputChange}
                   autoComplete="organization"
                   placeholder="Give your proof a name!"
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -77,6 +126,8 @@ export default function Verifier() {
                   type="email"
                   name="email"
                   id="email"
+                  value={formData.email}
+                  onChange={handleInputChange}
                   placeholder="your-email@example.com"
                   autoComplete="email"
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
@@ -94,16 +145,17 @@ export default function Verifier() {
                 <textarea
                   name="message"
                   id="message"
+                  value={formData.message}
+                  onChange={handleInputChange}
                   rows={4}
                   className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
-                  defaultValue={""}
                 />
               </div>
             </div>
           </div>
           <div className="mt-10">
             <button
-              type="submit"
+              onClick={handleSubmit}
               className="block w-full rounded-md bg-indigo-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
             >
               Generate
