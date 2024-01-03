@@ -7,8 +7,7 @@ import { useParams } from "next/navigation";
 import { useState } from "react";
 
 export default function Prover() {
-  // use params.id to fetch the associated proof data from the api
-  const params = useParams<{ tag: string; item: string }>();
+  const params = useParams<{ id: string }>();
   const [showValidModal, setShowValidModal] = useState(false);
   const [showInvalidModal, setShowInvalidModal] = useState(false);
   const [showError, setShowError] = useState(false);
@@ -44,8 +43,7 @@ export default function Prover() {
         },
         body: JSON.stringify({
           ...formData,
-          //TODO: dynamic value
-          id: "fb570078-d199-4e75-95c8-6905846b7722",
+          id: params.id,
         }),
       });
 
