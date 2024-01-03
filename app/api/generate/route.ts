@@ -1,7 +1,8 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
-import { generateProof } from "../service/service";
+import { generateProof } from "../service";
+import { Proof, SetupKeypair } from "zokrates-js";
 
 export async function POST(request: Request) {
   const cookieStore = cookies();
@@ -10,11 +11,23 @@ export async function POST(request: Request) {
   const { title, email, message } = await request.json();
 
   try {
-    const generatedProof = await generateProof(message);
+    const generatedProof:
+      | {
+          proof: Proof;
+          keypair: SetupKeypair;
+        }
+      | undefined = await generateProof(message);
 
     const { data, error } = await supabase
       .from("proofs")
-      .insert([{ title: title, email: email, proof: generatedProof }])
+      .insert([
+        {
+          title: title,
+          email: email,
+          proof: generatedProof?.proof,
+          verification_key: generatedProof?.keypair.vk,
+        },
+      ])
       .select();
 
     return NextResponse.json({ data, error });

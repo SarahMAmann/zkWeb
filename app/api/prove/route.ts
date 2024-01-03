@@ -1,19 +1,43 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
+import { generateProof, verify } from "../service";
+import { Proof, SetupKeypair } from "zokrates-js";
 
 export async function POST(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  let { data: proof, error } = await supabase
-    .from("proofs")
-    .select()
-    .eq("id", "4ac9a726-1e7b-4565-8eaf-31aa925b04d1");
+  const { id, email, message } = await request.json();
 
-  // generate a proof for the data sent with the request body and
-  // check if it matches the proof selected from the database
-  // trigger emails sends when true
+  try {
+    // generate a proof for the data sent with the request body
+    const generatedProofForInputs:
+      | {
+          proof: Proof;
+          keypair: SetupKeypair;
+        }
+      | undefined = await generateProof(message);
 
-  return NextResponse.json({ message: true }, { status: 200 });
+    // get proof from the database
+    const { data, error }: any = await supabase
+      .from("proofs")
+      .select()
+      .eq("id", id);
+
+    // check if the generated proof inputs return true for the proof selected from the database
+    const isCorrect: boolean | undefined = await verify(
+      data[0].verification_key,
+      data[0].proof,
+      generatedProofForInputs!.proof.inputs,
+    );
+
+    if (isCorrect) {
+      // trigger emails sends if true
+    }
+
+    return NextResponse.json({ isCorrect, error });
+  } catch (error) {
+    return NextResponse.json({ error: "An error occurred" }, { status: 500 });
+  }
 }

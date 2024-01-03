@@ -1,4 +1,9 @@
-import { initialize } from "zokrates-js";
+import {
+  CompilationArtifacts,
+  Proof,
+  SetupKeypair,
+  initialize,
+} from "zokrates-js";
 
 export async function generateProof(value: string) {
   try {
@@ -75,7 +80,10 @@ export async function generateProof(value: string) {
   }
 }
 
-async function generateProofAndSolidityCode(artifacts: any, date: string) {
+async function generateProofAndSolidityCode(
+  artifacts: CompilationArtifacts,
+  date: string,
+) {
   try {
     const verifier = await initialize().then((zokratesProvider) => {
       // second computation
@@ -99,10 +107,31 @@ async function generateProofAndSolidityCode(artifacts: any, date: string) {
       );
       console.log("PROOF", generatedProof);
 
-      return generatedProof;
+      return { proof: generatedProof, keypair: keypair };
     });
 
     return verifier;
+  } catch (e) {
+    console.log(e);
+  }
+}
+
+export async function verify(
+  verificationKey: SetupKeypair,
+  proof: Proof,
+  inputs: Array<string>,
+) {
+  try {
+    const isVerified = await initialize().then((zokratesProvider) => {
+      proof.inputs = inputs;
+      const zokratesVerified: boolean = zokratesProvider.verify(
+        verificationKey,
+        proof,
+      );
+      return zokratesVerified;
+    });
+
+    return isVerified;
   } catch (e) {
     console.log(e);
   }
