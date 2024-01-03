@@ -9,6 +9,7 @@ export async function GET() {
   let { data: proofs, error } = await supabase
     .from("proofs")
     .select("*")
+    .order("created_at", { ascending: false })
     .range(0, 9);
 
   return NextResponse.json({ proofs, error });
