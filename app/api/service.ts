@@ -128,6 +128,7 @@ export async function verify(
         verificationKey,
         proof,
       );
+      console.log("IS VERIFIED>", zokratesVerified);
       return zokratesVerified;
     });
 

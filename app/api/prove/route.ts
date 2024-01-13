@@ -3,21 +3,24 @@ import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 import { generateProof, verify } from "../service";
 import { Proof, SetupKeypair } from "zokrates-js";
+import { get14DigitHashFromString } from "../crypto";
 
 export async function POST(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { id, email, message } = await request.json();
+  const { id, email, message, dataType, inputData } = await request.json();
 
   try {
+    const formatted =
+      dataType === "dateData" ? inputData : get14DigitHashFromString(inputData);
     // generate a proof for the data sent with the request body
     const generatedProofForInputs:
       | {
           proof: Proof;
           keypair: SetupKeypair;
         }
-      | undefined = await generateProof(message);
+      | undefined = await generateProof(formatted);
 
     // get proof from the database
     const { data, error }: any = await supabase
