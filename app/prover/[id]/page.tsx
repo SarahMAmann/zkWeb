@@ -112,6 +112,9 @@ export default function Prover() {
         setShowError(true);
       }
       setFormData(initialFormData);
+      setTextDataString("");
+      setDateDataObject({});
+      setFileDataString("");
     } catch (error) {
       setShowError(true);
     }

@@ -1,15 +1,16 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
-import { generateProof, verify } from "../service";
+import { generateProof, verify } from "../zokrates-service";
 import { Proof, SetupKeypair } from "zokrates-js";
 import { get14DigitHashFromString } from "../crypto";
+import { sendEmails } from "../email-service";
 
 export async function POST(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
 
-  const { id, email, message, dataType, inputData } = await request.json();
+  const { id, email, dataType, inputData } = await request.json();
 
   try {
     const formatted =
@@ -36,7 +37,7 @@ export async function POST(request: Request) {
     );
 
     if (isCorrect) {
-      // trigger emails sends if true
+      sendEmails(email, data[0].email, data[0].title);
     }
 
     return NextResponse.json({ isCorrect, error });

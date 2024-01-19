@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
-import { generateProof } from "../service";
+import { generateProof } from "../zokrates-service";
 import { Proof, SetupKeypair } from "zokrates-js";
 import { get14DigitHashFromString } from "../crypto";
 
