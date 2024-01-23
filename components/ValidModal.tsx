@@ -4,7 +4,7 @@ import { CheckIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
 export default function ValidModal() {
-  const [open, setOpen] = useState(false);
+  const [open, setOpen] = useState(true);
 
   return (
     <Transition.Root show={open} as={Fragment}>
@@ -49,9 +49,9 @@ export default function ValidModal() {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        The input you submitted matched the verifier&apos;s
-                        proof. An email has been sent to the verifier to notify
-                        them of your successful submission.
+                        The key you submitted matched the verifier&apos;s proof.
+                        An email has been sent to you and to the verifier
+                        confirming your successful submission.
                       </p>
                     </div>
                   </div>

@@ -8,13 +8,14 @@ import { SetStateAction, useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import Loading from "@/components/Loading";
 
 export default function Prover() {
   const params = useParams<{ id: string }>();
+  const [isLoading, setIsLoading] = useState(false);
   const [showValidModal, setShowValidModal] = useState(false);
   const [showInvalidModal, setShowInvalidModal] = useState(false);
   const [showError, setShowError] = useState(false);
-  const [responseData, setResponseData] = useState(null);
   const [selectedDataType, setSelectedDataType] = useState<string>("textData");
   const [textDataString, setTextDataString] = useState<string>("");
   const [dateDataObject, setDateDataObject] = useState<any>({});
@@ -78,6 +79,7 @@ export default function Prover() {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const submitFormData = {
       ...formData,
@@ -105,17 +107,26 @@ export default function Prover() {
       });
 
       if (response.ok) {
+        setIsLoading(false);
         const data = await response.json();
-        setResponseData(data);
         setShowError(false);
+        setFormData(initialFormData);
+        setTextDataString("");
+        setDateDataObject({});
+        setFileDataString("");
+
+        if (data.isCorrect) {
+          setShowValidModal(true);
+        } else {
+          setShowError(false);
+          setShowInvalidModal(true);
+        }
       } else {
-        setShowError(true);
+        setIsLoading(false);
+        setShowInvalidModal(true);
       }
-      setFormData(initialFormData);
-      setTextDataString("");
-      setDateDataObject({});
-      setFileDataString("");
     } catch (error) {
+      setIsLoading(false);
       setShowError(true);
     }
   };
@@ -278,12 +289,23 @@ export default function Prover() {
             )}
           </div>
           <div className="mt-10">
-            <button
-              onClick={handleSubmit}
-              className="block w-full rounded-md bg-indigo-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Prove
-            </button>
+            {!isLoading && (
+              <button
+                onClick={handleSubmit}
+                className="block w-full rounded-md bg-indigo-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Prove
+              </button>
+            )}
+            {isLoading && (
+              <div>
+                <Loading />
+                <p className="pt-4">
+                  This may take a few minutes! Grab a coffee and get comfy while
+                  we check your key.
+                </p>
+              </div>
+            )}
           </div>
         </form>
       </div>

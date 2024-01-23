@@ -56,8 +56,8 @@ export default function InvalidModal() {
                     </Dialog.Title>
                     <div className="mt-2">
                       <p className="text-sm text-gray-500">
-                        The input you submitted did not match the
-                        verifier&apos;s proof.
+                        The key you submitted did not match the verifier&apos;s
+                        proof.
                       </p>
                     </div>
                   </div>

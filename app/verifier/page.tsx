@@ -1,20 +1,30 @@
 "use client";
 import Footer from "@/components/Footer";
 import Link from "next/link";
-import { SetStateAction, useState } from "react";
+import { SetStateAction, useEffect, useState } from "react";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { DatePicker } from "@mui/x-date-pickers/DatePicker";
+import { useRouter } from "next/navigation";
+import Loading from "@/components/Loading";
 
 export default function Verifier() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(false);
   const [showError, setShowError] = useState<boolean>(false);
-  const [responseData, setResponseData] = useState(null);
+  const [responseData, setResponseData] = useState<any>(null);
   const [selectedDataType, setSelectedDataType] = useState<string>("textData");
   const [textDataString, setTextDataString] = useState<string>("");
   const [dateDataObject, setDateDataObject] = useState<any>({});
   const [fileDataString, setFileDataString] = useState<
     string | ArrayBuffer | null
   >("");
+
+  useEffect(() => {
+    if (responseData !== null) {
+      router.push(`/success/${responseData.id}`);
+    }
+  }, [responseData]);
 
   const initialFormData = {
     title: "",
@@ -74,6 +84,7 @@ export default function Verifier() {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
+    setIsLoading(true);
 
     const submitFormData = {
       ...formData,
@@ -98,14 +109,17 @@ export default function Verifier() {
       });
 
       if (response.ok) {
+        setIsLoading(false);
         const data = await response.json();
-        setResponseData(data);
+        setResponseData(data.data[0]);
         setShowError(false);
+        setFormData(initialFormData);
       } else {
+        setIsLoading(false);
         setShowError(true);
       }
-      setFormData(initialFormData);
     } catch (error) {
+      setIsLoading(false);
       setShowError(true);
     }
   };
@@ -283,12 +297,23 @@ export default function Verifier() {
             )}
           </div>
           <div className="mt-10">
-            <button
-              onClick={handleSubmit}
-              className="block w-full rounded-md bg-indigo-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
-            >
-              Generate
-            </button>
+            {!isLoading && (
+              <button
+                onClick={handleSubmit}
+                className="block w-full rounded-md bg-indigo-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+              >
+                Generate
+              </button>
+            )}
+            {isLoading && (
+              <div>
+                <Loading />
+                <p className="pt-4">
+                  This may take a few minutes! Grab a coffee and get comfy while
+                  we generate your proof.
+                </p>
+              </div>
+            )}
           </div>
         </form>
       </div>
@@ -296,10 +321,13 @@ export default function Verifier() {
       {showError && (
         <div className="-mt-48 text-red-500 w-1/2">
           Error: a proof could not be generated for this input. You can refer to
-          the documentation to make sure your input meets the requirements:{" "}
-          <span className="underline text-gray-500 cursor-pointer">
-            https://docs.zkweb.io
-          </span>
+          the documentation to make sure your input meets the requirements:
+          <Link href="https://docs.zkweb.io">
+            <span className="underline cursor-pointer text-gray-500">
+              {" "}
+              https://docs.zkweb.io
+            </span>
+          </Link>
         </div>
       )}
 

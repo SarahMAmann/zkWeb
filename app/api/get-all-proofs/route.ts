@@ -10,7 +10,7 @@ export async function GET() {
     .from("proofs")
     .select("*")
     .order("created_at", { ascending: false })
-    .range(0, 9);
+    .range(0, 11);
 
   return NextResponse.json({ proofs, error });
 }

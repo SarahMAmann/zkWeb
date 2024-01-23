@@ -2,6 +2,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import Loading from "./Loading";
 
 interface Proof {
   created_at: string;
@@ -44,7 +45,7 @@ export default function GridCards() {
           role="list"
           className="grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8"
         >
-          {data.map((proof: Proof) => (
+          {data?.map((proof: Proof) => (
             <Link
               href={{
                 pathname: `/prover/[id]`,
@@ -86,7 +87,7 @@ export default function GridCards() {
           ))}
         </ul>
       ) : (
-        <p>Loading...</p>
+        <Loading />
       )}
     </div>
   );

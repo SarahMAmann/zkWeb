@@ -1,6 +1,9 @@
+"use client";
 import Link from "next/link";
+import { useParams } from "next/navigation";
 
 export default function Success() {
+  const params = useParams<{ id: string }>();
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
       <div className="mt-8 py-16 sm:py-24">
@@ -10,12 +13,13 @@ export default function Success() {
               Success!
             </h2>
             <p className="mx-auto mt-2 max-w-xl text-center text-lg leading-8 text-gray-300">
-              A new proof has been generated for your input. You can find it
-              here:
-              <span className="underline cursor-pointer text-gray-500">
-                {" "}
-                https://zkweb.io/prover/:id
-              </span>
+              A new proof has been generated for your key. You can find it here:
+              <Link href={`/prover/${params.id}`}>
+                <span className="underline cursor-pointer text-gray-500">
+                  {" "}
+                  https://zkweb.io/prover/{params.id}
+                </span>
+              </Link>
             </p>
             <div className="w-full flex justify-center mt-8">
               <Link href="/">

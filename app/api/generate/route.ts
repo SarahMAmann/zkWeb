@@ -22,19 +22,23 @@ export async function POST(request: Request) {
         }
       | undefined = await generateProof(formatted);
 
-    const { data, error } = await supabase
-      .from("proofs")
-      .insert([
-        {
-          title: title,
-          email: email,
-          proof: generatedProof?.proof,
-          verification_key: generatedProof?.keypair.vk,
-        },
-      ])
-      .select();
+    if (generatedProof) {
+      const { data, error } = await supabase
+        .from("proofs")
+        .insert([
+          {
+            title: title,
+            email: email,
+            proof: generatedProof?.proof,
+            verification_key: generatedProof?.keypair.vk,
+          },
+        ])
+        .select();
 
-    return NextResponse.json({ data, error });
+      return NextResponse.json({ data, error });
+    } else {
+      return NextResponse.json({ error: "An error occurred" }, { status: 500 });
+    }
   } catch (error) {
     return NextResponse.json({ error: "An error occurred" }, { status: 500 });
   }
