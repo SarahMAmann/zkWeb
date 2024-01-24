@@ -15,7 +15,7 @@ interface Proof {
 
 export default function GridCards({ searchResults }: any) {
   const [data, setData] = useState<Proof[] | null>(null);
-
+console.log(data)
   useEffect(() => {
     const apiUrl = "/api/get-all-proofs";
     fetch(apiUrl)
