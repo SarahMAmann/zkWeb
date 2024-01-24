@@ -13,7 +13,7 @@ interface Proof {
   verification_key: string | null;
 }
 
-export default function GridCards() {
+export default function GridCards({ searchResults }: any) {
   const [data, setData] = useState<Proof[] | null>(null);
 
   useEffect(() => {
@@ -25,13 +25,19 @@ export default function GridCards() {
         }
         return response.json();
       })
-      .then((data) => {
-        setData(data.proofs);
+      .then((apiData) => {
+        setData(apiData.proofs);
       })
       .catch((error) => {
         console.error("Error fetching data:", error);
       });
   }, []);
+
+  useEffect(() => {
+    if (searchResults) {
+      setData(searchResults);
+    }
+  }, [searchResults]);
 
   const formatDate = (isoDate: string) => {
     const options: any = { year: "numeric", month: "long", day: "numeric" };

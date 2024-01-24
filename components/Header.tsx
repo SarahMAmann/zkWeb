@@ -1,6 +1,15 @@
+"use client";
+import { useState } from "react";
 import SearchBar from "./SearchBar";
 
-export default function Header() {
+export default function Header({ onGrandparentData }: any) {
+  const [parentSearchResults, setParentSearchResults] = useState([]);
+
+  const handleParentData = (data: any) => {
+    setParentSearchResults(data);
+    onGrandparentData(data);
+  };
+
   return (
     <div className="flex flex-col gap-16 items-center">
       <div className="text-3xl lg:text-7xl !leading-tight mx-auto max-w-xl text-center font-sans font-bold antialiased">
@@ -15,7 +24,7 @@ export default function Header() {
       >
         Get Started ⚡︎
       </button>
-      <SearchBar />
+      <SearchBar onSearchResults={handleParentData} />
       <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
     </div>
   );
