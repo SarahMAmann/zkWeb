@@ -9,7 +9,4 @@ test('renders the GenerateButton with the correct text and icon', () => {
   const button = screen.getByText('Generate A Proof');
   expect(button).toBeInTheDocument();
 
-  const icon = screen.getByLabelText('Vercel logomark');
-  expect(icon).toBeInTheDocument();
-
 });

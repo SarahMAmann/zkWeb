@@ -2,15 +2,16 @@ import { NextResponse } from "next/server";
 import { createClient } from "@/utils/supabase/server";
 import { cookies } from "next/headers";
 
-// this will eventually need to be a post so we can get by id and use the request body
-export async function GET() {
+export async function POST(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
+
+  const { id } = await request.json();
 
   let { data: proof, error } = await supabase
     .from("proofs")
     .select()
-    .eq("id", "4ac9a726-1e7b-4565-8eaf-31aa925b04d1");
+    .eq("id", id);
 
   return NextResponse.json({ proof, error });
 }

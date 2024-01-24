@@ -3,6 +3,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import Loading from "./Loading";
+import logo from "../app/zkWeb-logo-svg.svg";
 
 interface Proof {
   created_at: string;
@@ -15,7 +16,7 @@ interface Proof {
 
 export default function GridCards({ searchResults }: any) {
   const [data, setData] = useState<Proof[] | null>(null);
-console.log(data)
+
   useEffect(() => {
     const apiUrl = "/api/get-all-proofs";
     fetch(apiUrl)
@@ -45,7 +46,7 @@ console.log(data)
   };
 
   return (
-    <div>
+    <div className="-mt-6">
       {data ? (
         <ul
           role="list"
@@ -68,11 +69,11 @@ console.log(data)
               >
                 <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
                   <Image
-                    src={"https://tailwindui.com/img/logos/48x48/tuple.svg"}
+                    src={logo}
                     alt={proof.title}
-                    width={12}
-                    height={12}
-                    className="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10"
+                    width={16}
+                    height={16}
+                    className="h-16 w-16 flex-none rounded-lg object-cover"
                   />
                   <div className="text-sm font-medium leading-6 text-gray-900">
                     {proof.title}
