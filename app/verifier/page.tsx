@@ -12,6 +12,7 @@ export default function Verifier() {
   const router = useRouter();
   const [isLoading, setIsLoading] = useState(false);
   const [showError, setShowError] = useState<boolean>(false);
+  const [showNoValidEmail, setShowNoValidEmail] = useState<boolean>(false);
   const [responseData, setResponseData] = useState<any>(null);
   const [selectedDataType, setSelectedDataType] = useState<string>("textData");
   const [textDataString, setTextDataString] = useState<string>("");
@@ -35,6 +36,12 @@ export default function Verifier() {
     title: "",
     email: "",
   });
+
+  const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
+
+  const validate = () => {
+    return formData.title.length & formData.email.length;
+  };
 
   const proofDataTypes = [
     { id: "textData", title: "Text" },
@@ -84,43 +91,48 @@ export default function Verifier() {
 
   const handleSubmit = async (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    setIsLoading(true);
+    if (formData.email.match(isValidEmail)) {
+      setShowNoValidEmail(false);
+      setIsLoading(true);
 
-    const submitFormData = {
-      ...formData,
-      dataType: selectedDataType,
-      inputData:
-        selectedDataType === "textData"
-          ? textDataString
-          : selectedDataType === "dateData"
-            ? new Date(dateDataObject.$d).getTime().toString()
-            : selectedDataType === "fileData"
-              ? fileDataString
-              : "",
-    };
+      const submitFormData = {
+        ...formData,
+        dataType: selectedDataType,
+        inputData:
+          selectedDataType === "textData"
+            ? textDataString
+            : selectedDataType === "dateData"
+              ? new Date(dateDataObject.$d).getTime().toString()
+              : selectedDataType === "fileData"
+                ? fileDataString
+                : "",
+      };
 
-    try {
-      const response = await fetch("/api/generate", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(submitFormData),
-      });
+      try {
+        const response = await fetch("/api/generate", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(submitFormData),
+        });
 
-      if (response.ok) {
-        setIsLoading(false);
-        const data = await response.json();
-        setResponseData(data.data[0]);
-        setShowError(false);
-        setFormData(initialFormData);
-      } else {
+        if (response.ok) {
+          setIsLoading(false);
+          const data = await response.json();
+          setResponseData(data.data[0]);
+          setShowError(false);
+          setFormData(initialFormData);
+        } else {
+          setIsLoading(false);
+          setShowError(true);
+        }
+      } catch (error) {
         setIsLoading(false);
         setShowError(true);
       }
-    } catch (error) {
-      setIsLoading(false);
-      setShowError(true);
+    } else {
+      setShowNoValidEmail(true);
     }
   };
 
@@ -140,7 +152,7 @@ export default function Verifier() {
           />
         </div>
         <div className="mx-auto max-w-2xl text-center">
-          <div className="w-20">
+          <div className="w-20 mb-8">
             <Link
               href="/"
               className="text-sm py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
@@ -151,8 +163,12 @@ export default function Verifier() {
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Generate A Proof
           </h2>
-          <p className="mt-2 text-lg leading-8 text-gray-600">
-            Verifier magna irure deserunt veniam aliqua magna enim voluptate.
+          <p className="mt-2 text-sm leading-8 text-gray-600 font-bold">
+            As the verifier, you can define a key from which a zero-knowledge proof is generated. 
+            In this case, the key you define can be a phrase, date, or an image file. 
+            Anyone can submit a key to this proof that you generate. 
+            If they submit the correct key, it will be a match for the proof,
+            proving that they know your secret key without ever having to reveal the key itself to you or anyone else!
           </p>
         </div>
         <form
@@ -160,7 +176,7 @@ export default function Verifier() {
           method="POST"
           className="mx-auto mt-16 max-w-xl sm:mt-20"
         >
-          <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+          <div className="-mt-12 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
             <div className="sm:col-span-2">
               <label
                 htmlFor="title"
@@ -189,7 +205,7 @@ export default function Verifier() {
                 Email{" "}
                 <span className="italic text-xs">
                   (You will receive a notification at this email address
-                  whenever your proof sends a successful verification response.)
+                  whenever a correct key is submitted to your proof.)
                 </span>
               </label>
               <div className="mt-2.5">
@@ -205,6 +221,11 @@ export default function Verifier() {
                 />
               </div>
             </div>
+            {showNoValidEmail && (
+              <div className="text-red-500 w-full">
+                Please enter a valid email address.
+              </div>
+            )}
             <div>
               <label className="text-sm font-semibold text-gray-600">
                 Your Secret Data
@@ -243,7 +264,7 @@ export default function Verifier() {
                   htmlFor="message"
                   className="block text-sm font-semibold leading-6 text-gray-600"
                 >
-                  Message
+                  Message <span className="italic">- Must be a minimum of 6 characters. Visit the docs to see the full secret key requirements.</span>
                 </label>
                 <div className="mt-2.5">
                   <textarea
@@ -252,6 +273,7 @@ export default function Verifier() {
                     value={textDataString}
                     onChange={handleMessageInputChange}
                     rows={4}
+                    minLength={6}
                     maxLength={5000}
                     className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                   />
@@ -284,11 +306,12 @@ export default function Verifier() {
                   htmlFor="file"
                   className="block text-sm font-semibold leading-6 text-gray-600"
                 >
-                  File
+                  File <span className="italic">- Accepts .jpeg, .png, .tiff, and .webp file types</span>
                 </label>
                 <div className="mt-2.5">
                   <input
                     type="file"
+                    accept=".jpeg,.png,.tiff,.webp"
                     onChange={handleFileChange}
                     className="cursor-pointer hover:opacity-90"
                   />
@@ -300,7 +323,8 @@ export default function Verifier() {
             {!isLoading && (
               <button
                 onClick={handleSubmit}
-                className="block w-full rounded-md bg-indigo-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                disabled={!validate()}
+                className={`${validate() ? `block w-full rounded-md bg-indigo-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600` : 'block w-full bg-gray-300 px-4 py-2 rounded-md cursor-not-allowed opacity-50'}`}
               >
                 Generate
               </button>

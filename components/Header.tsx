@@ -23,7 +23,7 @@ export default function Header({ onGrandparentData }: any) {
           className="h-2000 w-2000 flex-none rounded-lg object-cover ring-1 ring-gray-900/10"
         />
       </div>
-      <div className="-mt-32 antialiased text-lg tracking-widest">
+      <div className="-mt-24 text-sm md:-mt-32 antialiased md:text-lg tracking-widest">
         Zero-knowledge proofs for everyone.
       </div>
       <button

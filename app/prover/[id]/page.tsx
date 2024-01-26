@@ -188,8 +188,10 @@ export default function Prover() {
               Prove What You Know
             </h2>
             <h3 className="mt-6">{proof?.title}</h3>
-            <p className="mt-2 text-lg leading-8 text-gray-600">
-              Prover magna irure deserunt veniam aliqua magna enim voluptate.
+            <p className="mt-2 text-sm leading-8 text-gray-600 font-bold">
+              As the prover, you can submit a key in the form of a phrase, date, or an image file
+              to be checked against this proof. The key you submit must be an exact match for the key
+              that was used to generate the proof in order to get a correct response.
             </p>
           </div>
           <form
@@ -197,7 +199,7 @@ export default function Prover() {
             method="POST"
             className="mx-auto mt-16 max-w-xl sm:mt-20"
           >
-            <div className="grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
+            <div className="-mt-12 grid grid-cols-1 gap-x-8 gap-y-6 sm:grid-cols-2">
               <div className="sm:col-span-2">
                 <label
                   htmlFor="email"
@@ -262,7 +264,7 @@ export default function Prover() {
                     htmlFor="message"
                     className="block text-sm font-semibold leading-6 text-gray-600"
                   >
-                    Message
+                    Message <span className="italic">- Must be a minimum of 6 characters. Visit the docs to see the full secret key requirements.</span>
                   </label>
                   <div className="mt-2.5">
                     <textarea
@@ -272,6 +274,7 @@ export default function Prover() {
                       onChange={handleMessageInputChange}
                       rows={4}
                       maxLength={5000}
+                      minLength={6}
                       className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
                     />
                   </div>
@@ -303,11 +306,12 @@ export default function Prover() {
                     htmlFor="file"
                     className="block text-sm font-semibold leading-6 text-gray-600"
                   >
-                    File
+                    File <span className="italic">- Accepts .jpeg, .png, .tiff, and .webp file types</span>
                   </label>
                   <div className="mt-2.5">
                     <input
                       type="file"
+                      accept=".jpeg,.png,.tiff,.webp"
                       onChange={handleFileChange}
                       className="cursor-pointer hover:opacity-90"
                     />
