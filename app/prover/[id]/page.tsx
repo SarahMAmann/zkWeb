@@ -264,7 +264,14 @@ export default function Prover() {
                     htmlFor="message"
                     className="block text-sm font-semibold leading-6 text-gray-600"
                   >
-                    Message <span className="italic">- Must be a minimum of 6 characters. Visit the docs to see the full secret key requirements.</span>
+                    Message <span className="italic">- Must be a minimum of 6 characters. Visit the docs to see the full secret key requirements:
+                      <Link href="https://sarah-m-benson.notion.site/sarah-m-benson/zkWeb-User-API-Documentation-8f183fe4d3a14fab845918bd8237b109#0f77ca7f3d3144e5be5b3cc2afdbdd27">
+                        <span className="underline cursor-pointer text-gray-500">
+                          {" "}
+                          zkWeb Docs
+                        </span>
+                      </Link>
+                    </span>
                   </label>
                   <div className="mt-2.5">
                     <textarea

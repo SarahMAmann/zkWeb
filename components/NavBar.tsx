@@ -22,7 +22,7 @@ export default function Navbar() {
           </Link>
         </div>
         <Link
-          href="/"
+          href="https://sarah-m-benson.notion.site/sarah-m-benson/zkWeb-User-API-Documentation-8f183fe4d3a14fab845918bd8237b109#d74f5a34ff024944a4274ff8f93ab8ac"
           className="md:-mr-24 py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
         >
           Contribute
