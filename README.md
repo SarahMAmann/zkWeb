@@ -17,7 +17,7 @@
 <br/>
 
 
-This is a free and open source fun side project funded and maintained by [me](https://www.sarahbenson.dev/) to help people use and learn about ZKPs 🤓 
+This is a free and open source fun side project funded and maintained by ✨[me](https://www.sarahbenson.dev/)✨ to help people use and learn about ZKPs 🤓 
 
 <br/>
 
