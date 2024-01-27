@@ -27,9 +27,7 @@ export default function Header({ onGrandparentData }: any) {
       <div className="-mt-24 text-sm md:-mt-32 antialiased md:text-lg tracking-widest">
         Zero-knowledge proofs for everyone.
       </div>
-      <Link
-          href="https://sarah-m-benson.notion.site/sarah-m-benson/zkWeb-User-API-Documentation-8f183fe4d3a14fab845918bd8237b109#01ed3a7752f9488d9674b1c9509ba103"
-      >
+      <Link href="https://sarah-m-benson.notion.site/sarah-m-benson/zkWeb-User-API-Documentation-8f183fe4d3a14fab845918bd8237b109#01ed3a7752f9488d9674b1c9509ba103">
         <button
           type="button"
           className="-mt-10 rounded-md bg-emerald-500 px-8 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"

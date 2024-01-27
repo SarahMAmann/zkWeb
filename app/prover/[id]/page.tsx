@@ -189,9 +189,10 @@ export default function Prover() {
             </h2>
             <h3 className="mt-6">{proof?.title}</h3>
             <p className="mt-2 text-sm leading-8 text-gray-600 font-bold">
-              As the prover, you can submit a key in the form of a phrase, date, or an image file
-              to be checked against this proof. The key you submit must be an exact match for the key
-              that was used to generate the proof in order to get a correct response.
+              As the prover, you can submit a key in the form of a phrase, date,
+              or an image file to be checked against this proof. The key you
+              submit must be an exact match for the key that was used to
+              generate the proof in order to get a correct response.
             </p>
           </div>
           <form
@@ -264,7 +265,10 @@ export default function Prover() {
                     htmlFor="message"
                     className="block text-sm font-semibold leading-6 text-gray-600"
                   >
-                    Message <span className="italic">- Must be a minimum of 6 characters. Visit the docs to see the full secret key requirements:
+                    Message{" "}
+                    <span className="italic">
+                      - Must be a minimum of 6 characters. Visit the docs to see
+                      the full secret key requirements:
                       <Link href="https://sarah-m-benson.notion.site/sarah-m-benson/zkWeb-User-API-Documentation-8f183fe4d3a14fab845918bd8237b109#0f77ca7f3d3144e5be5b3cc2afdbdd27">
                         <span className="underline cursor-pointer text-gray-500">
                           {" "}
@@ -313,7 +317,10 @@ export default function Prover() {
                     htmlFor="file"
                     className="block text-sm font-semibold leading-6 text-gray-600"
                   >
-                    File <span className="italic">- Accepts .jpeg, .png, .tiff, and .webp file types</span>
+                    File{" "}
+                    <span className="italic">
+                      - Accepts .jpeg, .png, .tiff, and .webp file types
+                    </span>
                   </label>
                   <div className="mt-2.5">
                     <input

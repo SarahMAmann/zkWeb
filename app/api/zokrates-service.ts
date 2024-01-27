@@ -27,34 +27,77 @@ export async function generateProof(value: string) {
       const outputRemovedBrackets = output.replace(/[\[\]']+/g, "");
       let outputArray = outputRemovedBrackets.split(",");
 
-      // The outputs need to be of a number type, but they are too large for
-      // JavaScript so we have to split them up in smaller chunks
       const output1 = outputArray[0].trim();
       const output2 = outputArray[1].trim();
 
       // output string length could be 39 or 38 digits (we use 41 because the quotes are counted)
-      // we should also make sure user input is controlled (positive numbers, max, etc)
-      // to prevent any odd outlying string lengths
       const output1Length = output1.length === 41 ? 4 : 3;
       const output2Length = output2.length === 41 ? 4 : 3;
 
-      const firstOutputSegmentOneSlice = output1.substr(0, 10).replace('"', "");
-      const strippedWhitespace = firstOutputSegmentOneSlice.trim();
-      const firstOutputSegmentOne = Number(strippedWhitespace);
+      // The outputs need to be of a number type, but they are too large for
+      // JavaScript so we have to split them up in smaller chunks
+      let firstOutputSegmentOne;
+      let firstOutputSegmentTwo;
+      let firstOutputSegmentThree;
+      let firstOutputSegmentFour;
 
-      const firstOutputSegmentTwo = Number(output1.substr(10, 13));
-      const firstOutputSegmentThree = Number(output1.substr(23, 13));
-      const firstOutputSegmentFour = Number(output1.substr(36, output1Length));
+      // In JavaScript, when you convert a string to a number using Number(),
+      // it will automatically remove any leading zeros, so we account for any substrings
+      // that start with a zero by multiplying the previous segment by 10
+      firstOutputSegmentOne = Number(
+        output1.substr(0, 10).replace(/"/g, "").trim(),
+      );
 
-      const secondOutputSegmentOneSlice = output2
-        .substr(0, 10)
-        .replace('"', "");
-      const strippedWhitespaceSecond = secondOutputSegmentOneSlice.trim();
-      const secondOutputSegmentOne = Number(strippedWhitespaceSecond);
+      firstOutputSegmentTwo = Number(
+        output1.substr(10, 13).replace(/"/g, "").trim(),
+      );
+      if (output1.substr(10, 13)[0] === "0") {
+        firstOutputSegmentOne = firstOutputSegmentOne * 10;
+      }
 
-      const secondOutputSegmentTwo = Number(output2.substr(10, 13));
-      const secondOutputSegmentThree = Number(output2.substr(23, 13));
-      const secondOutputSegmentFour = Number(output2.substr(36, output2Length));
+      firstOutputSegmentThree = Number(
+        output1.substr(23, 13).replace(/"/g, "").trim(),
+      );
+      if (output1.substr(23, 13)[0] === "0") {
+        firstOutputSegmentTwo = firstOutputSegmentTwo * 10;
+      }
+
+      firstOutputSegmentFour = Number(
+        output1.substr(36, output1Length).replace(/"/g, "").trim(),
+      );
+      if (output1.substr(36, output1Length)[0] === "0") {
+        firstOutputSegmentThree = firstOutputSegmentThree * 10;
+      }
+
+      let secondOutputSegmentOne;
+      let secondOutputSegmentTwo;
+      let secondOutputSegmentThree;
+      let secondOutputSegmentFour;
+
+      secondOutputSegmentOne = Number(
+        output2.substr(0, 10).replace(/"/g, "").trim(),
+      );
+
+      secondOutputSegmentTwo = Number(
+        output2.substr(10, 13).replace(/"/g, "").trim(),
+      );
+      if (output2.substr(10, 13)[0] === "0") {
+        secondOutputSegmentOne = secondOutputSegmentOne * 10;
+      }
+
+      secondOutputSegmentThree = Number(
+        output2.substr(23, 13).replace(/"/g, "").trim(),
+      );
+      if (output2.substr(23, 13)[0] === "0") {
+        secondOutputSegmentTwo = secondOutputSegmentTwo * 10;
+      }
+
+      secondOutputSegmentFour = Number(
+        output2.substr(36, output2Length).replace(/"/g, "").trim(),
+      );
+      if (output2.substr(36, output2Length)[0] === "0") {
+        secondOutputSegmentThree = secondOutputSegmentThree * 10;
+      }
 
       const codeWithAssertion = `import \"hashes/sha256/512bitPacked\" as sha256packed; def main(private field a, private field b, private field c, private field d) -> field[2] { field[2] mut h = sha256packed([a, b, c, d]); assert(h[0] == ${firstOutputSegmentOne}${firstOutputSegmentTwo}${firstOutputSegmentThree}${firstOutputSegmentFour}); assert(h[1] == ${secondOutputSegmentOne}${secondOutputSegmentTwo}${secondOutputSegmentThree}${secondOutputSegmentFour}); return h; }`;
 
@@ -80,7 +123,7 @@ export async function generateProof(value: string) {
 
 async function generateProofAndSolidityCode(
   artifacts: CompilationArtifacts,
-  date: string,
+  value: string,
 ) {
   try {
     const verifier = await initialize().then((zokratesProvider) => {
@@ -89,7 +132,7 @@ async function generateProofAndSolidityCode(
         "0",
         "0",
         "0",
-        date,
+        value,
       ]);
       console.log("NEW WITNESS", witness);
 

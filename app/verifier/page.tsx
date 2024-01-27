@@ -40,7 +40,7 @@ export default function Verifier() {
   const isValidEmail = /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g;
 
   const validate = () => {
-    return formData.title.length & formData.email.length;
+    return formData.title.length && formData.email.length;
   };
 
   const proofDataTypes = [
@@ -164,11 +164,12 @@ export default function Verifier() {
             Generate A Proof
           </h2>
           <p className="mt-2 text-sm leading-8 text-gray-600 font-bold">
-            As the verifier, you can define a key from which a zero-knowledge proof is generated. 
-            In this case, the key you define can be a phrase, date, or an image file. 
-            Anyone can submit a key to this proof that you generate. 
-            If they submit the correct key, it will be a match for the proof,
-            proving that they know your secret key without ever having to reveal the key itself to you or anyone else!
+            As the verifier, you can define a key from which a zero-knowledge
+            proof is generated. In this case, the key you define can be a
+            phrase, date, or an image file. Anyone can submit a key to this
+            proof that you generate. If they submit the correct key, it will be
+            a match for the proof, proving that they know your secret key
+            without ever having to reveal the key itself to you or anyone else!
           </p>
         </div>
         <form
@@ -264,7 +265,10 @@ export default function Verifier() {
                   htmlFor="message"
                   className="block text-sm font-semibold leading-6 text-gray-600"
                 >
-                  Message <span className="italic">- Must be a minimum of 6 characters. Visit the docs to see the full secret key requirements:
+                  Message{" "}
+                  <span className="italic">
+                    - Must be a minimum of 6 characters. Visit the docs to see
+                    the full secret key requirements:
                     <Link href="https://sarah-m-benson.notion.site/sarah-m-benson/zkWeb-User-API-Documentation-8f183fe4d3a14fab845918bd8237b109#0f77ca7f3d3144e5be5b3cc2afdbdd27">
                       <span className="underline cursor-pointer text-gray-500">
                         {" "}
@@ -313,7 +317,10 @@ export default function Verifier() {
                   htmlFor="file"
                   className="block text-sm font-semibold leading-6 text-gray-600"
                 >
-                  File <span className="italic">- Accepts .jpeg, .png, .tiff, and .webp file types</span>
+                  File{" "}
+                  <span className="italic">
+                    - Accepts .jpeg, .png, .tiff, and .webp file types
+                  </span>
                 </label>
                 <div className="mt-2.5">
                   <input
@@ -331,7 +338,11 @@ export default function Verifier() {
               <button
                 onClick={handleSubmit}
                 disabled={!validate()}
-                className={`${validate() ? `block w-full rounded-md bg-indigo-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600` : 'block w-full bg-gray-300 px-4 py-2 rounded-md cursor-not-allowed opacity-50'}`}
+                className={`${
+                  validate()
+                    ? `block w-full rounded-md bg-indigo-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`
+                    : "block w-full bg-gray-300 px-4 py-2 rounded-md cursor-not-allowed opacity-50"
+                }`}
               >
                 Generate
               </button>
