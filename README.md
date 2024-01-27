@@ -11,7 +11,7 @@
   <a href="#documentation"><strong>Documentation</strong></a> ·
   <a href="#deploy-to-vercel"><strong>Deploy to Vercel</strong></a> ·
   <a href="#clone-and-run-locally"><strong>Clone and run locally</strong></a> ·
-  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a>
+  <a href="#feedback-and-issues"><strong>Feedback and issues</strong></a> ·
   <a href="#become-a-contributor"><strong>Become a Contributor</strong></a>
 </p>
 <br/>
