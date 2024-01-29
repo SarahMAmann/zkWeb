@@ -5,6 +5,8 @@ import { generateProof } from "../zokrates-service";
 import { Proof, SetupKeypair } from "zokrates-js";
 import { get14DigitHashFromString } from "../crypto";
 
+export const maxDuration = 60;
+
 export async function POST(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);
