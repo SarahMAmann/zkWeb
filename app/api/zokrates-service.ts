@@ -115,7 +115,7 @@ export async function generateProof(value: string) {
       return verifierProof;
     });
 
-    // return proof;
+    return proof;
   } catch (e) {
     console.log(e);
   }
@@ -149,7 +149,7 @@ async function generateProofAndSolidityCode(
       // console.log("PROOF", generatedProof);
 
       // return { proof: generatedProof, keypair: keypair };
-      return {};
+      return {}
     });
 
     return verifier;
