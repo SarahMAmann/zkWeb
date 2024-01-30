@@ -42,7 +42,7 @@ export async function POST(request: Request) {
       sendEmails(email, data[0].email, data[0].title);
     }
 
-    return NextResponse.json({ isCorrect: true, error });
+    return NextResponse.json({ isCorrect, error });
   // } catch (error) {
   //   return NextResponse.json({ error: error });
   // }
