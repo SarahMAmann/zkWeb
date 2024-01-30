@@ -37,11 +37,11 @@ export async function POST(request: Request) {
       generatedProofForInputs!.proof.inputs,
     );
 
-    if (isCorrect) {
-      sendEmails(email, data[0].email, data[0].title);
-    }
+    // if (isCorrect) {
+    //   sendEmails(email, data[0].email, data[0].title);
+    // }
 
-    return NextResponse.json({ isCorrect: isCorrect });
+    return NextResponse.json({ isCorrect, error });
   } catch (error) {
     return NextResponse.json({ error: error });
   }
