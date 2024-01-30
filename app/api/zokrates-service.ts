@@ -6,7 +6,7 @@ import {
 } from "zokrates-js";
 
 export async function generateProof(value: string) {
-  try {
+  // try {
     const proof = await initialize().then((zokratesProvider) => {
       const code =
         'import "hashes/sha256/512bitPacked" as sha256packed; def main(private field a, private field b, private field c, private field d) -> field[2] { field[2] mut h = sha256packed([a, b, c, d]); return h; }';
@@ -116,16 +116,16 @@ export async function generateProof(value: string) {
     });
 
     return proof;
-  } catch (e) {
-    console.log(e);
-  }
+  // } catch (e) {
+  //   console.log(e);
+  // }
 }
 
 async function generateProofAndSolidityCode(
   artifacts: CompilationArtifacts,
   value: string,
 ) {
-  try {
+  // try {
     const verifier = await initialize().then((zokratesProvider) => {
       // second computation
       const { witness, output } = zokratesProvider.computeWitness(artifacts, [
@@ -152,9 +152,9 @@ async function generateProofAndSolidityCode(
     });
 
     return verifier;
-  } catch (e) {
-    console.log(e);
-  }
+  // } catch (e) {
+  //   console.log(e);
+  // }
 }
 
 export async function verify(
