@@ -13,7 +13,7 @@ export async function POST(request: Request) {
 
   const { id, email, dataType, inputData } = await request.json();
 
-  try {
+  // try {
     const formatted =
       dataType === "dateData" ? inputData : get14DigitHashFromString(inputData);
 
@@ -32,18 +32,18 @@ export async function POST(request: Request) {
       .eq("id", id);
 
     // check if the generated proof inputs return true for the proof selected from the database
-    // const isCorrect: boolean | undefined = await verify(
-    //   data[0].verification_key,
-    //   data[0].proof,
-    //   generatedProofForInputs!.proof.inputs,
-    // );
+    const isCorrect: boolean | undefined = await verify(
+      data[0].verification_key,
+      data[0].proof,
+      generatedProofForInputs!.proof.inputs,
+    );
 
-    // if (isCorrect) {
-    //   sendEmails(email, data[0].email, data[0].title);
-    // }
+    if (isCorrect) {
+      sendEmails(email, data[0].email, data[0].title);
+    }
 
     return NextResponse.json({ isCorrect: true, error });
-  } catch (error) {
-    return NextResponse.json({ error: error });
-  }
+  // } catch (error) {
+  //   return NextResponse.json({ error: error });
+  // }
 }
