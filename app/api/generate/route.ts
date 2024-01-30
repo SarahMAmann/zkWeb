@@ -16,11 +16,11 @@ export async function POST(request: Request) {
     const formatted =
       dataType === "dateData" ? inputData : get14DigitHashFromString(inputData);
 
-    const generatedProof:any
-      // | {
-      //     proof: Proof;
-      //     keypair: SetupKeypair;
-      //   }
+    const generatedProof:
+      | {
+          proof: Proof;
+          keypair: SetupKeypair;
+        }
       | undefined = await generateProof(formatted);
 
     if (generatedProof) {
