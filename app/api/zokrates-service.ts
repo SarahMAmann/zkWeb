@@ -11,8 +11,8 @@ export async function generateProof(value: string) {
       const code =
         'import "hashes/sha256/512bitPacked" as sha256packed; def main(private field a, private field b, private field c, private field d) -> field[2] { field[2] mut h = sha256packed([a, b, c, d]); return h; }';
       // compilation
-      const artifacts = zokratesProvider.compile(code);
-      console.log("ARTIFACTS", artifacts);
+      // const artifacts = zokratesProvider.compile(code);
+      // console.log("ARTIFACTS", artifacts);
 
       // // computation
       // const { witness, output } = zokratesProvider.computeWitness(artifacts, [
