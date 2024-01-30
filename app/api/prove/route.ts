@@ -17,32 +17,30 @@ export async function POST(request: Request) {
     const formatted =
       dataType === "dateData" ? inputData : get14DigitHashFromString(inputData);
 
-      console.log('formatted')
     // generate a proof for the data sent with the request body
-    const generatedProofForInputs:
-      | {
-          proof: Proof;
-          keypair: SetupKeypair;
-        }
-      | undefined = await generateProof(formatted);
-console.log('generated')
+    // const generatedProofForInputs:
+    //   | {
+    //       proof: Proof;
+    //       keypair: SetupKeypair;
+    //     }
+    //   | undefined = await generateProof(formatted);
+
     // get proof from the database
     const { data, error }: any = await supabase
       .from("proofs")
       .select()
       .eq("id", id);
-console.log('selected')
-    // check if the generated proof inputs return true for the proof selected from the database
-    const isCorrect: boolean | undefined = await verify(
-      data[0].verification_key,
-      data[0].proof,
-      generatedProofForInputs!.proof.inputs,
-    );
-    console.log('isCorrect')
 
-    if (isCorrect) {
-      sendEmails(email, data[0].email, data[0].title);
-    }
+    // check if the generated proof inputs return true for the proof selected from the database
+    // const isCorrect: boolean | undefined = await verify(
+    //   data[0].verification_key,
+    //   data[0].proof,
+    //   generatedProofForInputs!.proof.inputs,
+    // );
+
+    // if (isCorrect) {
+    //   sendEmails(email, data[0].email, data[0].title);
+    // }
 
     return NextResponse.json({ isCorrect: true, error });
   } catch (error) {
