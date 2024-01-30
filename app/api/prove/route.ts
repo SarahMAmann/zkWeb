@@ -25,21 +25,21 @@ export async function POST(request: Request) {
       | undefined = await generateProof(formatted);
 
     // get proof from the database
-    const { data, error }: any = await supabase
+    const { data: proof, error }: any = await supabase
       .from("proofs")
       .select()
       .eq("id", id);
 
     // check if the generated proof inputs return true for the proof selected from the database
     const isCorrect: boolean | undefined = await verify(
-      data[0].verification_key,
-      data[0].proof,
+      proof.verification_key,
+      proof.proof,
       generatedProofForInputs!.proof.inputs,
     );
 
-    // if (isCorrect) {
-    //   sendEmails(email, data[0].email, data[0].title);
-    // }
+    if (isCorrect) {
+      sendEmails(email, proof.email, proof.title);
+    }
 
     return NextResponse.json({ isCorrect, error });
   } catch (error) {
