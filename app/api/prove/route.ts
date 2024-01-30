@@ -18,12 +18,12 @@ export async function POST(request: Request) {
       dataType === "dateData" ? inputData : get14DigitHashFromString(inputData);
 
     // generate a proof for the data sent with the request body
-    // const generatedProofForInputs:
-    //   | {
-    //       proof: Proof;
-    //       keypair: SetupKeypair;
-    //     }
-    //   | undefined = await generateProof(formatted);
+    const generatedProofForInputs:
+      | {
+          proof: Proof;
+          keypair: SetupKeypair;
+        }
+      | undefined = await generateProof(formatted);
 
     // get proof from the database
     const { data, error }: any = await supabase
