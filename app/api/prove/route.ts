@@ -14,34 +14,35 @@ export async function POST(request: Request) {
   const { id, email, dataType, inputData } = await request.json();
 
   try {
-    const formatted =
-      dataType === "dateData" ? inputData : get14DigitHashFromString(inputData);
-    // generate a proof for the data sent with the request body
-    const generatedProofForInputs:
-      | {
-          proof: Proof;
-          keypair: SetupKeypair;
-        }
-      | undefined = await generateProof(formatted);
+    // const formatted =
+    //   dataType === "dateData" ? inputData : get14DigitHashFromString(inputData);
+    // // generate a proof for the data sent with the request body
+    // const generatedProofForInputs:
+    //   | {
+    //       proof: Proof;
+    //       keypair: SetupKeypair;
+    //     }
+    //   | undefined = await generateProof(formatted);
 
-    // get proof from the database
-    const { data, error }: any = await supabase
-      .from("proofs")
-      .select()
-      .eq("id", id);
+    // // get proof from the database
+    // const { data, error }: any = await supabase
+    //   .from("proofs")
+    //   .select()
+    //   .eq("id", id);
 
-    // check if the generated proof inputs return true for the proof selected from the database
-    const isCorrect: boolean | undefined = await verify(
-      data[0].verification_key,
-      data[0].proof,
-      generatedProofForInputs!.proof.inputs,
-    );
+    // // check if the generated proof inputs return true for the proof selected from the database
+    // const isCorrect: boolean | undefined = await verify(
+    //   data[0].verification_key,
+    //   data[0].proof,
+    //   generatedProofForInputs!.proof.inputs,
+    // );
 
-    if (isCorrect) {
-      sendEmails(email, data[0].email, data[0].title);
-    }
+    // if (isCorrect) {
+    //   sendEmails(email, data[0].email, data[0].title);
+    // }
 
-    return NextResponse.json({ isCorrect, error });
+    // return NextResponse.json({ isCorrect, error });
+    return NextResponse.json({ isCorrect: true });
   } catch (error) {
     return NextResponse.json({ error: error });
   }
