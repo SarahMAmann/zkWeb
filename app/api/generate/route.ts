@@ -11,36 +11,36 @@ export async function POST(request: Request) {
   const supabase = createClient(cookieStore);
 
   const { title, email, dataType, inputData } = await request.json();
+  return NextResponse.json({ error: "An error occurred" }, { status: 500 });
+  // try {
+  //   const formatted =
+  //     dataType === "dateData" ? inputData : get14DigitHashFromString(inputData);
 
-  try {
-    const formatted =
-      dataType === "dateData" ? inputData : get14DigitHashFromString(inputData);
+  //   const generatedProof:
+  //     | {
+  //         proof: Proof;
+  //         keypair: SetupKeypair;
+  //       }
+  //     | undefined = await generateProof(formatted);
 
-    const generatedProof:
-      | {
-          proof: Proof;
-          keypair: SetupKeypair;
-        }
-      | undefined = await generateProof(formatted);
+  //   if (generatedProof) {
+  //     const { data, error } = await supabase
+  //       .from("proofs")
+  //       .insert([
+  //         {
+  //           title: title,
+  //           email: email,
+  //           proof: generatedProof?.proof,
+  //           verification_key: generatedProof?.keypair.vk,
+  //         },
+  //       ])
+  //       .select();
 
-    if (generatedProof) {
-      const { data, error } = await supabase
-        .from("proofs")
-        .insert([
-          {
-            title: title,
-            email: email,
-            proof: generatedProof?.proof,
-            verification_key: generatedProof?.keypair.vk,
-          },
-        ])
-        .select();
-
-      return NextResponse.json({ data, error });
-    } else {
-      return NextResponse.json({ error: "An error occurred" }, { status: 500 });
-    }
-  } catch (error) {
-    return NextResponse.json({ error: "An error occurred" }, { status: 500 });
-  }
+  //     return NextResponse.json({ data, error });
+  //   } else {
+  //     return NextResponse.json({ error: "An error occurred" }, { status: 500 });
+  //   }
+  // } catch (error) {
+  //   return NextResponse.json({ error: "An error occurred" }, { status: 500 });
+  // }
 }
