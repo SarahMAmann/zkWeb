@@ -14,21 +14,21 @@ export async function generateProof(value: string) {
       const artifacts = zokratesProvider.compile(code);
       console.log("ARTIFACTS", artifacts);
 
-      // computation
-      const { witness, output } = zokratesProvider.computeWitness(artifacts, [
-        "0",
-        "0",
-        "0",
-        value,
-      ]);
-      console.log("WITNESS", witness); // Resulting witness which can be used to generate a proof
-      console.log("OUTPUT", output); // Computation output
+      // // computation
+      // const { witness, output } = zokratesProvider.computeWitness(artifacts, [
+      //   "0",
+      //   "0",
+      //   "0",
+      //   value,
+      // ]);
+      // console.log("WITNESS", witness); // Resulting witness which can be used to generate a proof
+      // console.log("OUTPUT", output); // Computation output
 
-      const outputRemovedBrackets = output.replace(/[\[\]']+/g, "");
-      let outputArray = outputRemovedBrackets.split(",");
+      // const outputRemovedBrackets = output.replace(/[\[\]']+/g, "");
+      // let outputArray = outputRemovedBrackets.split(",");
 
-      const output1 = outputArray[0].trim();
-      const output2 = outputArray[1].trim();
+      // const output1 = outputArray[0].trim();
+      // const output2 = outputArray[1].trim();
 
       // // output string length could be 39 or 38 digits (we use 41 because the quotes are counted)
       // const output1Length = output1.length === 41 ? 4 : 3;
