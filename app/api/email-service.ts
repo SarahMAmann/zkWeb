@@ -14,6 +14,8 @@ export async function sendEmails(
     },
   });
 
+  console.log('PASS', process.env.NEXT_PUBLIC_PASSWORD)
+
   const mailOptions: Mail.Options = {
     from: process.env.NEXT_PUBLIC_EMAIL,
     to: [proverEmail, verifierEmail],
@@ -21,12 +23,10 @@ export async function sendEmails(
     text: `Hi there! 🦄 This is a message from your friends at zkWeb letting you know that a correct key for proof ${proofName} was just provided by ${proverEmail}.`,
   };
 
-  console.log('mail opts', mailOptions)
 
   const sendMailPromise = () =>
     new Promise<string>((resolve, reject) => {
       transport.sendMail(mailOptions, function (err) {
-        console.log('transport')
         if (!err) {
           resolve("Email sent");
         } else {
