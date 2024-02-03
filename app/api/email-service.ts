@@ -14,9 +14,6 @@ export async function sendEmails(
     },
   });
 
-  console.log('EMAIL', process.env.NEXT_PUBLIC_EMAIL)
-  console.log('PASS', process.env.NEXT_PUBLIC_PASSWORD)
-
   const mailOptions: Mail.Options = {
     from: process.env.NEXT_PUBLIC_EMAIL,
     to: [proverEmail, verifierEmail],
@@ -31,7 +28,6 @@ export async function sendEmails(
         if (!err) {
           resolve("Email sent");
         } else {
-          console.log(err.message)
           reject(err.message);
         }
       });
