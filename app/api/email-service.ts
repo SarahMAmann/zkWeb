@@ -21,12 +21,16 @@ export async function sendEmails(
     text: `Hi there! 🦄 This is a message from your friends at zkWeb letting you know that a correct key for proof ${proofName} was just provided by ${proverEmail}.`,
   };
 
+  console.log('mail opts', mailOptions)
+
   const sendMailPromise = () =>
     new Promise<string>((resolve, reject) => {
       transport.sendMail(mailOptions, function (err) {
+        console.log('transport')
         if (!err) {
           resolve("Email sent");
         } else {
+          console.log(err.message)
           reject(err.message);
         }
       });
