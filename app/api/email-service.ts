@@ -14,6 +14,7 @@ export async function sendEmails(
     },
   });
 
+  console.log('EMAIL', process.env.NEXT_PUBLIC_EMAIL)
   console.log('PASS', process.env.NEXT_PUBLIC_PASSWORD)
 
   const mailOptions: Mail.Options = {
