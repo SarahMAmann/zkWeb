@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     );
 
     if (isCorrect) {
-      sendEmails(email, data[0].email, data[0].title);
+      await sendEmails(email, data[0].email, data[0].title);
     }
 
     return NextResponse.json({ isCorrect, error });
