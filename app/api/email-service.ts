@@ -14,6 +14,8 @@ export async function sendEmails(
     },
   });
 
+  console.log('>>>', process.env.NEXT_PUBLIC_EMAIL, process.env.NEXT_PUBLIC_PASSWORD)
+
   const mailOptions: Mail.Options = {
     from: process.env.NEXT_PUBLIC_EMAIL,
     to: [proverEmail, verifierEmail],
