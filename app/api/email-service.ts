@@ -28,6 +28,7 @@ export async function sendEmails(
         if (!err) {
           resolve("Email sent");
         } else {
+          console.log(err.message)
           reject(err.message);
         }
       });
