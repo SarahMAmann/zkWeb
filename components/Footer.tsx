@@ -37,7 +37,7 @@ const navigation = {
 
 export default function Footer() {
   return (
-    <footer className="py-10 w-full mt-10 border-t border-t-btn-background px-6 grid place-items-center gap-4">
+    <footer className="opacity-70 font-normal py-10 w-full mt-10 border-t border-t-secondary px-6 grid place-items-center gap-4">
       <ul className="flex items-center gap-4">
         {navigation.main.map((item) => (
           <Link className="text-sm transition hover:text-primary font-normal" href={item.href} key={item.name}>
@@ -52,7 +52,7 @@ export default function Footer() {
           </Link>
         ))}
       </ul>
-      <p className="text-sm font-normal">© {new Date().getFullYear()} zkWeb. All rights reserved.</p>
+      <p className="text-sm font-normal">© {new Date().getFullYear()} <span className="text-primary">zkWeb</span>. All rights reserved.</p>
     </footer>
   );
 }
