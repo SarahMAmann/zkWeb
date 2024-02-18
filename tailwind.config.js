@@ -9,10 +9,9 @@ module.exports = {
       colors: {
         background: 'hsl(var(--background))',
         foreground: 'hsl(var(--foreground))',
-        btn: {
-          background: 'hsl(var(--btn-background))',
-          'background-hover': 'hsl(var(--btn-background-hover))',
-        },
+        secondary: 'hsl(var(--secondary))',
+        'secondary-hover': 'hsl(var(--secondary-hover))',
+        primary: 'rgb(16 185 129)'
       },
     },
   },

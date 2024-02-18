@@ -4,6 +4,7 @@ import SearchBar from "./SearchBar";
 import Image from "next/image";
 import banner from "../app/zkweb-banner-image.svg";
 import Link from "next/link";
+import Button from "./reuseable/Button";
 
 export default function Header({ onGrandparentData }: any) {
   const [parentSearchResults, setParentSearchResults] = useState([]);
@@ -14,7 +15,7 @@ export default function Header({ onGrandparentData }: any) {
   };
 
   return (
-    <div className="flex flex-col gap-16 items-center">
+    <div className="flex flex-col gap-10 items-center">
       <div className="text-3xl lg:text-7xl !leading-tight mx-auto max-w-xl text-center font-sans font-bold antialiased">
         <Image
           src={banner}
@@ -23,19 +24,14 @@ export default function Header({ onGrandparentData }: any) {
           height={2000}
           className="h-2000 w-2000 flex-none rounded-lg object-cover ring-1 ring-gray-900/10"
         />
+        <p className="text-base -mt-10 font-normal">
+          Zero-knowledge proofs for everyone.
+        </p>
       </div>
-      <div className="-mt-24 text-sm md:-mt-32 antialiased md:text-lg tracking-widest">
-        Zero-knowledge proofs for everyone.
+      <div className="grid place-items-center gap-1">
+        <Button asLink href="https://sarah-m-benson.notion.site/sarah-m-benson/zkWeb-User-API-Documentation-8f183fe4d3a14fab845918bd8237b109#01ed3a7752f9488d9674b1c9509ba103">Get Started ⚡︎</Button>
+        <SearchBar onSearchResults={handleParentData} />
       </div>
-      <Link href="https://sarah-m-benson.notion.site/sarah-m-benson/zkWeb-User-API-Documentation-8f183fe4d3a14fab845918bd8237b109#01ed3a7752f9488d9674b1c9509ba103">
-        <button
-          type="button"
-          className="-mt-10 rounded-md bg-emerald-500 px-8 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-emerald-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-500"
-        >
-          Get Started ⚡︎
-        </button>
-      </Link>
-      <SearchBar onSearchResults={handleParentData} />
       <div className="w-full p-[1px] bg-gradient-to-r from-transparent via-foreground/10 to-transparent my-8" />
     </div>
   );

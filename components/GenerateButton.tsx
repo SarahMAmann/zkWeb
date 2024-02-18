@@ -1,7 +1,7 @@
+import Button from "./reuseable/Button";
+
 export default function GenerateButton() {
-  return (
-    <div className="py-2 px-3 flex rounded-md no-underline hover:bg-btn-background-hover border">
-      Generate A Proof
-    </div>
-  );
+    return (
+        <Button variant="secondary" asLink href="/verifier">Generate A Proof</Button>
+    )
 }

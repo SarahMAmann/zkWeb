@@ -46,7 +46,7 @@ export default function GridCards({ searchResults }: any) {
   };
 
   return (
-    <div className="-mt-6">
+    <div>
       {data ? (
         <ul
           role="list"
