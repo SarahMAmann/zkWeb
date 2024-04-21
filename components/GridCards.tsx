@@ -65,9 +65,9 @@ export default function GridCards({ searchResults }: any) {
             >
               <li
                 key={proof.id}
-                className="overflow-hidden rounded-xl border border-gray-200"
+                className="transition-transform duration-300 ease-in-out transform hover:scale-110 overflow-hidden rounded-xl border border-gray-800"
               >
-                <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+                <div className="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-800 p-6">
                   <Image
                     src={logo}
                     alt={proof.title}
@@ -75,14 +75,14 @@ export default function GridCards({ searchResults }: any) {
                     height={16}
                     className="h-16 w-16 flex-none rounded-lg object-cover"
                   />
-                  <div className="text-sm font-medium leading-6 text-gray-900">
+                  <div className="text-sm font-medium leading-6 text-white">
                     {proof.title}
                   </div>
                 </div>
-                <dl className="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-                  <div className="flex justify-between gap-x-3 py-3">
-                    <dt className="text-gray-500">Created on:</dt>
-                    <dd className="text-gray-700">
+                <dl className="bg-[#04090B] -my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+                  <div className="flex py-3">
+                    <dt className="text-gray-500 pr-2">Created</dt>
+                    <dd className="text-orange-700 font-thin">
                       <time dateTime={proof.created_at}>
                         {formatDate(proof.created_at)}
                       </time>

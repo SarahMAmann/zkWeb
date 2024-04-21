@@ -23,7 +23,7 @@ export default function Index() {
         </main>
       </div>
 
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+      <footer className="bg-[#04090B] w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
         <Footer />
       </footer>
     </div>
