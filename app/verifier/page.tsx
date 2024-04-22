@@ -138,8 +138,8 @@ export default function Verifier() {
 
   return (
     <div className="flex-1 w-full flex flex-col gap-20 items-center">
-      <div className="isolate px-6 py-24 sm:py-32 lg:px-8">
-        <div
+      <div className="isolate px-6 py-24 sm:py-32 lg:px-8 bg-gray-900 rounded-lg mt-5">
+        {/* <div
           className="absolute inset-x-0 top-[-10rem] -z-10 transform-gpu overflow-hidden blur-3xl sm:top-[-20rem]"
           aria-hidden="true"
         >
@@ -150,12 +150,12 @@ export default function Verifier() {
                 "polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)",
             }}
           />
-        </div>
+        </div> */}
         <div className="mx-auto max-w-2xl text-center">
-          <div className="w-20 mb-8">
+          <div className="w-20 mb-4">
             <Link
               href="/"
-              className="text-sm py-2 px-3 flex rounded-md no-underline bg-btn-background hover:bg-btn-background-hover"
+              className="text-sm py-2 px-3 flex rounded-md no-underline bg-gray-500 hover:bg-btn-background-hover"
             >
               ← Home
             </Link>
@@ -163,7 +163,7 @@ export default function Verifier() {
           <h2 className="text-3xl font-bold tracking-tight text-white sm:text-4xl">
             Generate A Proof
           </h2>
-          <p className="mt-2 text-sm leading-8 text-gray-600 font-bold">
+          <p className="bg-[#04090B] border border-orange-600 rounded-lg px-10 py-2 mt-8 text-sm leading-8 text-gray-400 font-bold">
             As the verifier, you can define a key from which a zero-knowledge
             proof is generated. In this case, the key you define can be a
             phrase, date, or an image file. Anyone can submit a key to this
@@ -181,7 +181,7 @@ export default function Verifier() {
             <div className="sm:col-span-2">
               <label
                 htmlFor="title"
-                className="block text-sm font-semibold leading-6 text-gray-600"
+                className="block text-sm font-semibold leading-6 text-gray-400"
               >
                 Title
               </label>
@@ -194,14 +194,14 @@ export default function Verifier() {
                   onChange={handleInputChange}
                   autoComplete="organization"
                   placeholder="Give your proof a name!"
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
             <div className="sm:col-span-2">
               <label
                 htmlFor="email"
-                className="block text-sm font-semibold leading-6 text-gray-600"
+                className="block text-sm font-semibold leading-6 text-gray-400"
               >
                 Email{" "}
                 <span className="italic text-xs">
@@ -218,7 +218,7 @@ export default function Verifier() {
                   onChange={handleInputChange}
                   placeholder="your-email@example.com"
                   autoComplete="email"
-                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                  className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                 />
               </div>
             </div>
@@ -228,10 +228,10 @@ export default function Verifier() {
               </div>
             )}
             <div>
-              <label className="text-sm font-semibold text-gray-600">
+              <label className="text-sm font-semibold text-gray-400">
                 Your Secret Data
               </label>
-              <p className="text-sm text-gray-600">
+              <p className="text-sm text-gray-400">
                 What type of data would you like to create a proof for?
               </p>
               <fieldset className="mt-4">
@@ -246,11 +246,11 @@ export default function Verifier() {
                         onChange={onOptionChange}
                         value={proofDataType.id}
                         checked={selectedDataType == proofDataType.id}
-                        className="h-4 w-4 border-gray-300 text-indigo-600 focus:ring-indigo-600"
+                        className="h-4 w-4 border-gray-300 text-orange-600 focus:ring-orange-600"
                       />
                       <label
                         htmlFor={proofDataType.id}
-                        className="ml-3 block text-sm font-medium leading-6 text-gray-500"
+                        className="ml-3 block text-sm font-medium leading-6 text-gray-400"
                       >
                         {proofDataType.title}
                       </label>
@@ -263,7 +263,7 @@ export default function Verifier() {
               <div className="sm:col-span-2">
                 <label
                   htmlFor="message"
-                  className="block text-sm font-semibold leading-6 text-gray-600"
+                  className="block text-sm font-semibold leading-6 text-gray-400"
                 >
                   Message{" "}
                   <span className="italic">
@@ -285,7 +285,7 @@ export default function Verifier() {
                     rows={4}
                     minLength={6}
                     maxLength={5000}
-                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"
+                    className="block w-full rounded-md border-0 px-3.5 py-2 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-orange-600 sm:text-sm sm:leading-6"
                   />
                 </div>
               </div>
@@ -339,7 +339,7 @@ export default function Verifier() {
                 disabled={!validate()}
                 className={`${
                   validate()
-                    ? `block w-full rounded-md bg-indigo-800 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600`
+                    ? `block w-full rounded-md bg-orange-700 px-3.5 py-2.5 text-center text-sm font-semibold text-white shadow-sm hover:bg-orange-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-orange-600`
                     : "block w-full bg-gray-300 px-4 py-2 rounded-md cursor-not-allowed opacity-50"
                 }`}
               >
@@ -372,7 +372,7 @@ export default function Verifier() {
         </div>
       )}
 
-      <footer className="w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
+      <footer className="bg-[#04090B] w-full border-t border-t-foreground/10 p-8 flex justify-center text-center text-xs">
         <Footer />
       </footer>
     </div>
