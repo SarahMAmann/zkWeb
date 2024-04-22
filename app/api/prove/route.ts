@@ -6,7 +6,6 @@ import { Proof, SetupKeypair } from "zokrates-js";
 import { get14DigitHashFromString } from "../crypto";
 import { sendEmails } from "../email-service";
 
-
 export async function POST(request: Request) {
   const cookieStore = cookies();
   const supabase = createClient(cookieStore);

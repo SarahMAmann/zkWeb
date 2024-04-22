@@ -15,7 +15,7 @@ export default function Success() {
             <p className="mx-auto mt-2 max-w-xl text-center text-lg leading-8 text-gray-300">
               A new proof has been generated for your key. You can find it here:
               <Link href={`/prover/${params.id}`}>
-                <span className="underline cursor-pointer text-gray-500">
+                <span className="underline cursor-pointer text-orange-600 hover:text-orange-500">
                   {" "}
                   https://zkweb.io/prover/{params.id}
                 </span>
